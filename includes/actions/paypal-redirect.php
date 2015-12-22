@@ -41,6 +41,7 @@ final class NF_Action_PayPalRedirect extends NF_Notification_Base_Type {
 	 */
 	public function edit_screen ( $id = '' ) {
 		$settings['paypal_email'] = Ninja_Forms()->notification( $id )->get_setting( 'paypal_email' );
+		$settings['accepted_fields'] = Ninja_Forms()->notification( $id )->get_setting( 'accepted_fields' );
 
 		include NF_PayPalRedirect::$dir . 'includes/templates/action-paypal-redirect.html.php';
 	}
@@ -60,28 +61,27 @@ final class NF_Action_PayPalRedirect extends NF_Notification_Base_Type {
 		$all_fields = ninja_forms_get_fields_by_form_id( $form_id );
 		$total = '';
 
+		// Get IDs of fields that are to be sent to PayPal
+		$accepted_fields = $PayPalEmail = Ninja_Forms()->notification( $id )->get_setting( 'accepted_fields' );
+
+		$accepted_ary = explode(',', $accepted_fields);
+
 		if ( is_array( $all_fields ) ) {
 			foreach( $all_fields as $field ) {
-				$setting = $ninja_forms_processing->get_field_settings( $field['id'] );
-				$label = $setting['data']['label'];
 				$value = $ninja_forms_processing->get_field_value( $field['id'] );
 
-				// For the time being, the "Quantitiy" and "Amount" labels
-				// are reserved for this PayPal redirect
-
-				// If the label is quantity (should be a list) or the label is amount (should be a hidden field)
-				if ($label == 'Quantity' || $label == 'Amount') {
+				if (in_array($field['id'], $accepted_ary)) {
 					$total += $value;
 				}
 			}
 		}
 
 		// Grab PayPal email from NF setting
-		$PayPalEmail = Ninja_Forms()->notification( $id )->get_setting( 'paypal_email' );
+		$paypal_email = Ninja_Forms()->notification( $id )->get_setting( 'paypal_email' );
 
 		// Format PayPal URL
 		$url = 'https://www.paypal.com/us/cgi-bin/webscr?cmd=_xclick
-		&business=' . urlencode($PayPalEmail) . '
+		&business=' . urlencode($paypal_email) . '
 		&item_name=' . urlencode($form_title) . '
 		&item_number=
 		&amount=' . $total . '

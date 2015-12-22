@@ -14,7 +14,13 @@ Adds ability to redirect to PayPal with user submitted form values as prices.
 
 This small plugin takes the values of certain fields in a Ninja Form and adds them to a total that is then passed to PayPal upon form submission. All you need is a standard PayPal account!
 
+== Usage ==
 
+After creating a new form, simply create a new Action (from the Emails & Actions tab) and select "PayPal Redirect" as the type. Give it whatever name you want ("PayPal Redirection" works fine) and enter the email address of the PayPal account you want to use.
+
+Then, enter the IDs (comma separated) of the fields you wish to be used to calculate the total upon being sent to PayPal. You can get the ID of a field after expanding one on the "Build Your Form" tab. The very first line should say "Field ID:" just copy that number.
+
+As long as the value of a field is a number (i.e. 20, 20.00, 21.56), the plugin will add it to the total amount that's sent to PayPal.
 
 == Installation ==
 
