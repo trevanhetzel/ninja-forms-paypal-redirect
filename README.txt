@@ -35,5 +35,8 @@ As long as the value of a field is a number (i.e. 20, 20.00, 21.56), the plugin 
 
 == Changelog ==
 
+= v1.1 =
+* Add ability to use whatever form fields you want to be calculated in the PayPal total.
+
 = v1.0 =
 * Initial release

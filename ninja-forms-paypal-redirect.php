@@ -4,7 +4,7 @@
  * Plugin Name:     Ninja Forms - PayPal Redirect
  * Plugin URI:      http://trevan.co/ninja-forms-paypal-redirect
  * Description:     Adds ability to redirect to PayPal with user submitted form values as prices
- * Version:         1.0.0
+ * Version:         1.1.0
  * Author:          Trevan Hetzel
  * Author URI:      http://trevan.co
  * License:         GPL-2.0+
